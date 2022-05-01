@@ -14,7 +14,7 @@ export default async (req, res) => {
 
   res.json({ 
     // ...users.find(user => user.id === parseInt(id)),
-    ...eth,
+    ...{eth},
     ...{tokens}
 
   });
