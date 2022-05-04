@@ -32,7 +32,8 @@ export const apiGetERC20Tokens = async (address: string) => {
     tokenInfo: {
       ...token.tokenInfo,
       address: ethers.utils.getAddress(token.tokenInfo.address),
-      balance_usd: parseFloat((roundToDecimal(token.balance / Math.pow(10, token.tokenInfo.decimals), 3) * token.tokenInfo.price.rate).toFixed(2))
+      balance_usd: parseFloat((roundToDecimal(token.balance / Math.pow(10, token.tokenInfo.decimals), 3) * token.tokenInfo.price.rate).toFixed(2)),
+      balance_token: parseFloat(roundToDecimal(token.balance / Math.pow(10, token.tokenInfo.decimals), 3).toFixed(2))
     },
   }));
   let total_balance = 0
