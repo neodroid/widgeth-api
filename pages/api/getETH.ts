@@ -55,7 +55,7 @@ export const apiGetERC20Tokens = async (address: string) => {
 
   // const ethBalanceUsd = parseFloat((roundToDecimal(token.balance / Math.pow(10, token.tokenInfo.decimals), 3) * token.tokenInfo.price.rate).toFixed(2))
 
-  const ethBalance = roundToDecimal(eth.balance, 3)
+  const ethBalance = roundToDecimal(eth.balance, 3).toFixed(2)
 
   const ethBalanceString = dollarFormatter.format(eth.balance * eth.price.rate) 
   const ethDiff = Math.abs(eth.price.diff).toFixed(2)
