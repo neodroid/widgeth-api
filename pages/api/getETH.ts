@@ -38,7 +38,7 @@ export const apiGetERC20Tokens = async (address: string) => {
   let total_balance = 0
   checksumErc20s.map(x=> x.tokenInfo.balance_usd>0 ?total_balance = total_balance + x.tokenInfo.balance_usd: total_balance = total_balance+0)
 
-  // total_balance += (eth.balance * eth.price.rate)
+  total_balance += (eth.balance * eth.price.rate)
   const string_balance = dollarFormatter.format(total_balance) 
   return [eth, checksumErc20s, string_balance];
 };
