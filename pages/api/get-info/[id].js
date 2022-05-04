@@ -9,13 +9,14 @@ export default async (req, res) => {
 
   const { query: { id } } = req;
 
-  const [eth, tokens] = await apiGetERC20Tokens(id);
+  const [eth, tokens, balance] = await apiGetERC20Tokens(id);
   
 
   res.json({ 
     // ...users.find(user => user.id === parseInt(id)),
     ...{eth},
-    ...{tokens}
+    ...{tokens},
+    ...{balance}
 
   });
 }
