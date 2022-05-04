@@ -38,9 +38,20 @@ export const apiGetERC20Tokens = async (address: string) => {
   let total_balance = 0
   checksumErc20s.map(x=> x.tokenInfo.balance_usd>0 ?total_balance = total_balance + x.tokenInfo.balance_usd: total_balance = total_balance+0)
 
+  const orderedBalanceErc20s = orderBy(checksumErc20s, ["tokenInfo.balance_usd"], ["desc"]);
+  const checkBalanceErc20s = orderedBalanceErc20s.map((token: any) => ({
+    ...token,
+    tokenInfo: {
+      ...token.tokenInfo,
+      balance_fixed: token.tokenInfo.balance_usd? token.tokenInfo.balance_usd : 0.00,
+      balance_string: dollarFormatter.format(token.tokenInfo.balance_usd? token.tokenInfo.balance_usd : 0.00) 
+    },
+  }));
+
+  const orderedFixedBalanceErc20s = orderBy(checkBalanceErc20s, ["tokenInfo.balance_fixed"], ["desc"]);
   total_balance += (eth.balance * eth.price.rate)
   const string_balance = dollarFormatter.format(total_balance) 
-  return [eth, checksumErc20s, string_balance];
+  return [eth, orderedFixedBalanceErc20s, string_balance];
 };
 
 // export const apiGetERC20Tokens = (address: string) => {
